@@ -1,14 +1,24 @@
 /* style.css */
 
+body {
+    display: flex;
+    align-items: center; /* Centraliza verticalmente */
+    justify-content: center; /* Centraliza horizontalmente */
+    height: 100vh; /* Altura total da viewport */
+    margin: 0; /* Remove margens padrão */
+    background-color: #f0f0f0; /* Cor de fundo suave */
+}
+
 .micro-container {
     display: flex;
     flex-direction: column;
+    align-items: center; /* Centraliza o conteúdo dentro do container */
     padding: 20px;
     background-color: #ffffff;
     border-radius: 12px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-    max-width: 400px;
-    margin: 20px auto;
+    width: 100%; /* Largura total, limitado pelo max-width */
+    max-width: 400px; /* Limita a largura máxima */
 }
 
 label {
@@ -20,12 +30,13 @@ label {
 
 .currency-select,
 input[type="number"] {
-    width: 100%;
+    width: 100%; /* Largura total do input */
     padding: 12px;
     margin: 10px 0;
     border: 2px solid #007bff;
     border-radius: 8px;
     font-size: 1rem;
+    color: rgb(0, 13, 190);
     background-color: #f9f9f9;
     transition: border-color 0.3s ease, background-color 0.3s ease;
 }
@@ -44,7 +55,7 @@ input[type="number"]:focus {
     border: none;
     border-radius: 8px;
     background-color: #007bff;
-    color: cd#ffa0a0; /* Texto do botão */
+    color: #cdffa0; /* Texto do botão */
     font-size: 1rem;
     font-weight: bold;
     cursor: pointer;
