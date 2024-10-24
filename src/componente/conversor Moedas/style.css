@@ -1,0 +1,33 @@
+/* Dias.css */
+.conversion-rate {
+    font-size: 1.5rem;
+    color: #2c3e50;
+    margin-bottom: 10px;
+    font-weight: bold; 
+}
+
+.history-title {
+    font-size: 1.25rem;
+    color: #34495e;
+    margin-bottom: 5px;
+    font-weight: 600; 
+}
+
+.history-list {
+    list-style-type: none;
+    padding-left: 0;
+    background-color: #f9f9f9; 
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+}
+
+.history-list li {
+    padding: 8px 10px;
+    border-bottom: 1px solid #75ee3d;
+    font-size: 1rem;
+    color: #2c3e50; 
+}
+
+.history-list li:last-child {
+    border-bottom: none;
+}

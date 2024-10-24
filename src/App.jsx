@@ -1,46 +1,38 @@
-import { useEffect, useState } from 'react';
-import './App.css';
-import SelecionarMoeda from './componente/conversao';
+import React, { useState, useEffect } from 'react';
+import Micro from './componente/moedas';
+import Dias from './componente/conversor moedas';
 
-function App() {
-  const [MoedaOrigem, setMoedaOrigem] = useState('');
-  const [MoedaDestino, setMoedaDestino] = useState('');
+const App = () => {
+    const [conversionRate, setConversionRate] = useState();
+    const [history, setHistory] = useState([null]);
+    const [favorites, setFavorites] = useState(['USD', 'EUR', 'BRL','CVE','']);
 
-  const moedas = ['EUR', 'USD', 'CVE'];
+    
+    const fetchConversion = async (from, to) => {
+        try {
+            const response = await fetch (`https://api.exchangerate-api.com/v4/latest/${from}`);
+            const data = await response.json();
+            const rate = data.rates[to];
 
-  function handleTrocarMoedaOrigem(moeda) {
-    setMoedaOrigem(moeda);
-  }
+            setConversionRate(rate);
+            setHistory((prevHistory) => [...prevHistory, `${from} para ${to}: ${rate}`]);
+        } catch (error) {
+            console.error('Erro ao buscar a conversão:', error);
+        }
+    };
 
-  function handleTrocarMoedaDestino(moeda) {
-    setMoedaDestino(moeda);
-  }
+    useEffect(() => {
+        const savedFavorites = JSON.parse(localStorage.getItem('favorites')) || favorites;
+        setFavorites(savedFavorites);
+    }, []);
 
-  return (
-    <div>
-      <h1>Conversor Moedas</h1>
-      <SelecionarMoeda
-        moedas={moedas}
-        SelecionarMoedaOrigem={handleTrocarMoedaOrigem}
-        SelecionarMoedaDestino={handleTrocarMoedaDestino}
-      />
-    </div>
-  );
-}
-
-function Historico(){
-  const [historia , setHistoria] = useState([]);
-
-  useEffect(() => {
-    if (rate){
-      const newConversao = { from : fromCurrency, to :toCurreency , rate};
-      setHistoria((prevHistoria) => [...prevHistoria, newConversao]);
-      
-    }
-  }, [rate];
-)
-
-  <Historico/>
-}
+    return (
+        <div>
+            <h1>Conversor de Moedas</h1>
+            <Micro onFetchConversion={fetchConversion} favorites={favorites} />
+            <Dias conversionRate={conversionRate} history={history} />
+        </div>
+    );
+};
 
 export default App;
