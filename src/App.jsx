@@ -7,7 +7,17 @@ const App = () => {
     const [history, setHistory] = useState([null]);
     const [favorites, setFavorites] = useState(['USD', 'EUR', 'BRL','CVE','']);
 
-    
+    const fetchCodes = async () => {
+        try {
+            const response = await fetch("https://v6.exchangerate-api.com/v6/3c2ebb09b90011889049cd0d/codes")
+            const data = await response.json();
+            if(data.supported_codes){
+                return data.supported_codes;
+            }
+        } catch (error) {
+            console.error('Erro ao buscar a conversão:', error);
+        }
+    }
     const fetchConversion = async (from, to) => {
         try {
             const response = await fetch (`https://api.exchangerate-api.com/v4/latest/${from}`);
@@ -20,7 +30,15 @@ const App = () => {
             console.error('Erro ao buscar a conversão:', error);
         }
     };
-
+    useEffect(() => {
+        const codes  = fetchCodes().then(
+            (data) => {
+                const cds = data.map(element => element[0] + " - " + element[1])
+                setFavorites(cds)
+                
+            }
+        );
+    }, []);
     useEffect(() => {
         const savedFavorites = JSON.parse(localStorage.getItem('favorites')) || favorites;
         setFavorites(savedFavorites);
